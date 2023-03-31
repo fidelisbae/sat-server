@@ -5,7 +5,7 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exam } from './exam.entity';
+import { Exam } from '../exam/exam.entity';
 
 @Entity()
 export class Question {
