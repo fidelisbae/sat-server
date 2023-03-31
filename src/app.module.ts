@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
+import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Question } from './entities/question.entity';
-import { Exam } from './entities/exam.entity';
+import { Question } from './question/question.entity';
+import { Exam } from './exam/exam.entity';
 import { QuestionModule } from './question/question.module';
 import { ExamModule } from './exam/exam.module';
+import { APP_PIPE } from '@nestjs/core';
+import { UserModule } from './user/user.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -13,12 +15,22 @@ import { ExamModule } from './exam/exam.module';
       username: 'root',
       password: 'root',
       database: 'sat_db',
-      entities: [Question, Exam],
+      entities: [__dirname + '/src/**/*.entity{.ts,.js}'],
       synchronize: true,
       logging: true,
     }),
     QuestionModule,
     ExamModule,
+    UserModule,
+  ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useValue: new ValidationPipe({
+        whitelist: true,
+        forbidNonWhitelisted: true,
+      }),
+    },
   ],
 })
 export class AppModule {}
