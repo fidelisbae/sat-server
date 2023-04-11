@@ -1,6 +1,6 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { APP_PIPE } from '@nestjs/core';
+import { APP_FILTER, APP_PIPE } from '@nestjs/core';
 
 import { UserModule } from './user/user.module';
 import { ExamModule } from './exam/exam.module';
@@ -12,6 +12,7 @@ import { Exam } from './exam/exam.entity';
 import { Section } from './section/section.entity';
 import { Modular } from './modular/modular.entity';
 import { Question } from './question/question.entity';
+import { HttpExceptionFilter } from './common/http.exception.filter';
 
 @Module({
   imports: [
@@ -22,7 +23,6 @@ import { Question } from './question/question.entity';
       username: 'root',
       password: 'root',
       database: 'sat_db',
-      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       entities: [User, Exam, Section, Modular, Question],
       synchronize: true,
       logging: true,
@@ -40,6 +40,10 @@ import { Question } from './question/question.entity';
         whitelist: true,
         forbidNonWhitelisted: true,
       }),
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
     },
   ],
 })

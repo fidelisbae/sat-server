@@ -22,10 +22,12 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message:
-        exception instanceof HttpException ? exception.message : exception,
       timestamp: new Date().toISOString(),
       path: request.url,
     });
+
+    this.logger.error(
+      `${request.method} ${request.url} ${status} ${JSON.stringify(exception)}`,
+    );
   }
 }
