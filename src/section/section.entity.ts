@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { Exam } from '../exam/exam.entity';
-import { Module } from '../module/module.entity';
+import { Modular } from '../modular/modular.entity';
 
 @Entity()
 export class Section {
@@ -24,8 +24,8 @@ export class Section {
   @Column({ type: 'varchar', length: 255, nullable: false })
   subject: string;
 
-  @OneToMany(() => Module, (module) => module.section)
-  modules: Module[];
+  @OneToMany(() => Modular, (modular) => modular.section)
+  modulars: Modular[];
 
   @ManyToOne(() => Exam)
   @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })

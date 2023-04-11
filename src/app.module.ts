@@ -5,8 +5,13 @@ import { APP_PIPE } from '@nestjs/core';
 import { UserModule } from './user/user.module';
 import { ExamModule } from './exam/exam.module';
 import { SectionModule } from './section/section.module';
-import { ModuleModule } from './module/module.module';
+import { ModularModule } from './modular/modular.module';
 import { QuestionModule } from './question/question.module';
+import { User } from './user/user.entity';
+import { Exam } from './exam/exam.entity';
+import { Section } from './section/section.entity';
+import { Modular } from './modular/modular.entity';
+import { Question } from './question/question.entity';
 
 @Module({
   imports: [
@@ -17,14 +22,15 @@ import { QuestionModule } from './question/question.module';
       username: 'root',
       password: 'root',
       database: 'sat_db',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      entities: [User, Exam, Section, Modular, Question],
       synchronize: true,
       logging: true,
     }),
     UserModule,
     ExamModule,
     SectionModule,
-    ModuleModule,
+    ModularModule,
     QuestionModule,
   ],
   providers: [

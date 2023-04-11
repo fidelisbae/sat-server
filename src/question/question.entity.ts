@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Module } from '../module/module.entity';
+import { Modular } from '../modular/modular.entity';
 
 @Entity()
 export class Question {
@@ -43,10 +43,10 @@ export class Question {
   @Column({ type: 'varchar', length: 255, nullable: false })
   correct_answer: string;
 
-  @ManyToOne(() => Module)
-  @JoinColumn({ name: 'module_id', referencedColumnName: 'id' })
-  module: Module;
+  @ManyToOne(() => Modular)
+  @JoinColumn({ name: 'modular_id', referencedColumnName: 'id' })
+  module: Modular;
 
   @Column({ type: 'int', nullable: false })
-  module_id: number;
+  modular_id: number;
 }

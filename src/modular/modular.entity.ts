@@ -11,7 +11,7 @@ import { Question } from '../question/question.entity';
 import { Section } from '../section/section.entity';
 
 @Entity()
-export class Module {
+export class Modular {
   @PrimaryGeneratedColumn('increment')
   id: number;
 

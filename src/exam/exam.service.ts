@@ -16,4 +16,10 @@ export class ExamService {
       relations: ['sections', 'sections.questions'],
     });
   }
+
+  async create(): Promise<Exam> {
+    const exam = new Exam();
+    exam.name = 'SAT';
+    return await this.examRepository.save(exam);
+  }
 }
