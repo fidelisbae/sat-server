@@ -5,7 +5,8 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { Exam } from '../exam/exam.entity';
+
+import { Module } from '../module/module.entity';
 
 @Entity()
 export class Question {
@@ -16,36 +17,36 @@ export class Question {
   number: number;
 
   @Column({ type: 'text', nullable: false })
+  passage: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: false })
   content: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
   image_path: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   choice_1: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   choice_2: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   choice_3: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   choice_4: string;
+
+  @Column({ type: 'varchar', length: 255, nullable: true })
+  choice_5: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   correct_answer: string;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  is_vertical: boolean;
-
-  @Column({ type: 'boolean', nullable: false, default: false })
-  is_subjective: boolean;
-
-  @ManyToOne(() => Exam)
-  @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
-  exam: Exam;
+  @ManyToOne(() => Module)
+  @JoinColumn({ name: 'module_id', referencedColumnName: 'id' })
+  module: Module;
 
   @Column({ type: 'int', nullable: false })
-  exam_id: number;
+  module_id: number;
 }
