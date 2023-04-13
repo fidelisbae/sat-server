@@ -12,8 +12,8 @@ export class SectionService {
     private readonly sectionRepository: Repository<Section>,
   ) {}
 
-  async create(body: CreateSectionDto): Promise<Section> {
-    return await this.sectionRepository.save(body);
+  async create(dto: CreateSectionDto): Promise<Section> {
+    return await this.sectionRepository.save(dto);
   }
 
   async findAll(): Promise<Section[]> {
@@ -27,6 +27,7 @@ export class SectionService {
     });
   }
 
+  // TODO: return 형식
   async delete(id: number): Promise<{ affected?: number | undefined }> {
     return await this.sectionRepository.delete(id);
   }

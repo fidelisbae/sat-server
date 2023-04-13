@@ -12,6 +12,10 @@ export class ExamService {
     private readonly examRepository: Repository<Exam>,
   ) {}
 
+  async create(dto: CreateExamDto): Promise<Exam> {
+    return await this.examRepository.save(dto);
+  }
+
   async findAll(): Promise<Exam[]> {
     return await this.examRepository.find();
   }
@@ -25,10 +29,6 @@ export class ExamService {
       ],
       where: { id },
     });
-  }
-
-  async create(dto: CreateExamDto): Promise<Exam> {
-    return await this.examRepository.save(dto);
   }
 
   // TODO: return 형식
