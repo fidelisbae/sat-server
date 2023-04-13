@@ -13,21 +13,25 @@ export class ExamService {
   ) {}
 
   async findAll(): Promise<Exam[]> {
-    return await this.examRepository.find({
-      relations: ['sections'],
-    });
+    return await this.examRepository.find();
   }
 
   async findOne(id: number): Promise<Exam> {
     return await this.examRepository.findOne({
+      relations: [
+        'sections',
+        'sections.modulars',
+        'sections.modulars.questions',
+      ],
       where: { id },
     });
   }
 
-  async create(body: CreateExamDto): Promise<Exam> {
-    return await this.examRepository.save(body);
+  async create(dto: CreateExamDto): Promise<Exam> {
+    return await this.examRepository.save(dto);
   }
 
+  // TODO: return 형식
   async delete(id: number): Promise<{ affected?: number | undefined }> {
     return await this.examRepository.delete(id);
   }

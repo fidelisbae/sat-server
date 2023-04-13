@@ -1,21 +1,12 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  Put,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 
-import { ExamService } from './exam.service';
-import { CreateExamDto } from './exam.dto';
-import { BaseResponse, ListResponse } from '../common/types/response';
-import { Exam } from './exam.entity';
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
+import { BaseResponse, ListResponse } from '../common/types/response';
+import { ExamService } from './exam.service';
+import { CreateExamDto } from './exam.dto';
+import { Exam } from './exam.entity';
 
 @Controller('api')
 export class ExamController {
@@ -48,7 +39,7 @@ export class ExamController {
     description: 'Exam id',
   })
   @Get('exams/:id')
-  async findOne(@Param() id: number) {
+  async findOne(@Param('id') id: number) {
     const data = await this.examService.findOne(id);
 
     return <BaseResponse<Exam>>{
@@ -74,7 +65,7 @@ export class ExamController {
   }
 
   @ApiOperation({
-    summary: 'Delete an exam',
+    summary: 'Delete an exam with id',
   })
   @ApiTags('exams')
   @ApiParam({
@@ -84,7 +75,7 @@ export class ExamController {
     description: 'Exam id',
   })
   @Delete('exams/:id')
-  async delete(@Param() id: number) {
+  async delete(@Param('id') id: number) {
     const data = await this.examService.delete(id);
 
     return <BaseResponse<Exam>>{
