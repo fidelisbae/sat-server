@@ -1,10 +1,11 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+
 import { Exam } from '../exam/exam.entity';
 
 @Entity()
 export class User {
   @PrimaryColumn({ type: 'varchar', length: 255 })
-  id: number;
+  id: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })
   password: string;
