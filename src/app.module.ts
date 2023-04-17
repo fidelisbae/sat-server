@@ -1,6 +1,7 @@
 import { Module, ValidationPipe } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_FILTER, APP_PIPE } from '@nestjs/core';
+import { ConfigModule } from '@nestjs/config';
 
 import { UserModule } from './user/user.module';
 import { ExamModule } from './exam/exam.module';
@@ -12,10 +13,12 @@ import { Exam } from './exam/exam.entity';
 import { Section } from './section/section.entity';
 import { Modular } from './modular/modular.entity';
 import { Question } from './question/question.entity';
-import { HttpExceptionFilter } from './common/http.exception.filter';
+import { HttpExceptionFilter } from './common/filters/http.exception.filter';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -32,6 +35,7 @@ import { HttpExceptionFilter } from './common/http.exception.filter';
     SectionModule,
     ModularModule,
     QuestionModule,
+    AuthModule,
   ],
   providers: [
     {
