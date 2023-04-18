@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
@@ -11,6 +11,7 @@ import { Question } from './question.entity';
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Create a question',
   })
@@ -26,6 +27,7 @@ export class QuestionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get all questions',
   })
@@ -42,6 +44,7 @@ export class QuestionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get a question with id',
   })
@@ -57,6 +60,7 @@ export class QuestionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Delete a question with id',
   })

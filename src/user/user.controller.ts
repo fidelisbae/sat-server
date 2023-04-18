@@ -1,16 +1,28 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
 import { BaseResponse, ListResponse } from '../common/types/response';
-import { CreateUserDto } from './user.dto';
+import { AllocateExamDto, CreateUserDto } from './user.dto';
 import { UserService } from './user.service';
 import { User } from './user.entity';
-@Controller('user')
+import { Public } from '../common/utils/public';
+import { UpdateResult } from 'typeorm';
+@Controller('api')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  // Todo : delete Public decorator
+  @Public()
   @ApiOperation({
     summary: 'Create a user',
   })
@@ -26,6 +38,7 @@ export class UserController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get all users',
   })
@@ -42,6 +55,7 @@ export class UserController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get a user with id',
   })
@@ -57,6 +71,7 @@ export class UserController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Delete a user with id',
   })
@@ -66,6 +81,22 @@ export class UserController {
     const data = await this.userService.delete(id);
 
     return <BaseResponse<User>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.OK),
+      data: data,
+    };
+  }
+
+  @ApiBearerAuth('access-token or refresh-token')
+  @ApiOperation({
+    summary: 'Allocate an exam to a user',
+  })
+  @ApiTags('users')
+  @Patch('users/:id')
+  async allocate(@Body() body: AllocateExamDto) {
+    const data = await this.userService.allocate(body);
+
+    return <BaseResponse<UpdateResult>>{
       result: true,
       message: getResponsePhrase(STATUS_CODES.OK),
       data: data,

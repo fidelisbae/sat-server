@@ -33,3 +33,15 @@ export class CreateUserDto {
   @IsNotEmpty()
   readonly is_teacher: boolean;
 }
+
+export class AllocateExamDto {
+  @ApiProperty({ example: 'student01' })
+  @IsString()
+  @IsNotEmpty()
+  readonly user_id: string;
+
+  @ApiProperty({ example: 1 })
+  @IsNumber()
+  @IsNotEmpty()
+  readonly exam_id: number;
+}

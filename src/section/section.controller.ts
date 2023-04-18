@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
@@ -12,6 +12,7 @@ import { CreateSectionDto } from './section.dto';
 export class SectionController {
   constructor(private readonly sectionService: SectionService) {}
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Create a section',
   })
@@ -27,6 +28,7 @@ export class SectionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get all sections',
   })
@@ -43,6 +45,7 @@ export class SectionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get a section with id, include relations',
   })
@@ -58,6 +61,7 @@ export class SectionController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Delete a section with id',
   })

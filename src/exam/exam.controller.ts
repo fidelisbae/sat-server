@@ -17,7 +17,7 @@ import { Exam } from './exam.entity';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
-  @ApiBearerAuth()
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get all exams',
   })
@@ -34,6 +34,7 @@ export class ExamController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get an exam with id, include relations',
   })
@@ -55,6 +56,7 @@ export class ExamController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Create an exam',
   })
@@ -70,6 +72,7 @@ export class ExamController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Delete an exam with id',
   })

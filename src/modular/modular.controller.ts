@@ -1,5 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { BaseResponse, ListResponse } from '../common/types/response';
 import { getResponsePhrase } from '../common/utils/http';
@@ -12,6 +12,7 @@ import { Modular } from './modular.entity';
 export class ModularController {
   constructor(private readonly modularService: ModularService) {}
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Create a modular',
   })
@@ -27,6 +28,7 @@ export class ModularController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get all modulars',
   })
@@ -43,6 +45,7 @@ export class ModularController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Get a modular with id, include relations',
   })
@@ -58,6 +61,7 @@ export class ModularController {
     };
   }
 
+  @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
     summary: 'Delete a modular with id',
   })

@@ -11,7 +11,17 @@ async function bootstrap() {
     .setDescription('The SAT API description')
     .setVersion('1.0')
     .addTag('SAT')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        name: 'JWT',
+        in: 'header',
+      },
+      'access-token or refresh-token',
+    )
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api-docs', app, document);
 

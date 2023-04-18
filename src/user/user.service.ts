@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, UpdateResult } from 'typeorm';
 
 import { User } from './user.entity';
-import { CreateUserDto } from './user.dto';
+import { AllocateExamDto, CreateUserDto } from './user.dto';
 
 @Injectable()
 export class UserService {
@@ -29,5 +29,14 @@ export class UserService {
   // TODO return 형식
   async delete(id: string): Promise<{ affected?: number | undefined }> {
     return await this.userRepository.delete(id);
+  }
+
+  async allocate(dto: AllocateExamDto): Promise<UpdateResult> {
+    const { exam_id, user_id } = dto;
+    const data = await this.userRepository.update(user_id, {
+      exam_id,
+    });
+
+    return data;
   }
 }
