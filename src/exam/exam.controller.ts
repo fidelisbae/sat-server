@@ -1,5 +1,10 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
@@ -12,6 +17,7 @@ import { Exam } from './exam.entity';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
+  @ApiBearerAuth()
   @ApiOperation({
     summary: 'Get all exams',
   })

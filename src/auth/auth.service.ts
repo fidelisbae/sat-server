@@ -17,10 +17,22 @@ export class AuthService {
       throw new UnauthorizedException();
     }
 
-    const payload = { id: user.id, is_teacher: user.is_teacher };
+    const payload = {
+      sub: user.id,
+    };
+
+    const access_token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_ACCESS_EXPIRED_IN,
+    });
+    const refresh_token = this.jwtService.sign(payload, {
+      secret: process.env.JWT_SECRET,
+      expiresIn: process.env.JWT_REFRESH_EXPIRED_IN,
+    });
 
     return {
-      access_token: await this.jwtService.signAsync(payload),
+      access_token,
+      refresh_token,
     };
   }
 }
