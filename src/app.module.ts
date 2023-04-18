@@ -27,7 +27,7 @@ import { AuthGuard } from './common/guards/auth.guard';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
+      host: 'sat-mysql',
       port: 3306,
       username: 'root',
       password: 'root',
