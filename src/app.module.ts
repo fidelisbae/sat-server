@@ -21,6 +21,10 @@ import { ExamResult } from './exam_result/exam_result.entity';
 import { SectionResult } from './section_result/section_result.entity';
 import { ModularResult } from './modular_result/modular_result.entity';
 import { QuestionResult } from './question_result/question_result.entity';
+import { ExamResultModule } from './exam_result/exam_result.module';
+import { SectionResultModule } from './section_result/section_result.module';
+import { ModularResultModule } from './modular_result/modular_result.module';
+import { QuestionResultModule } from './question_result/question_result.module';
 
 @Module({
   imports: [
@@ -57,6 +61,10 @@ import { QuestionResult } from './question_result/question_result.entity';
     ModularModule,
     QuestionModule,
     AuthModule,
+    ExamResultModule,
+    SectionResultModule,
+    ModularResultModule,
+    QuestionResultModule,
   ],
   providers: [
     {
