@@ -17,6 +17,10 @@ import { Question } from './question/question.entity';
 import { HttpExceptionFilter } from './common/filters/http.exception.filter';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './common/guards/auth.guard';
+import { ExamResult } from './exam_result/exam_result.entity';
+import { SectionResult } from './section_result/section_result.entity';
+import { ModularResult } from './modular_result/modular_result.entity';
+import { QuestionResult } from './question_result/question_result.entity';
 
 @Module({
   imports: [
@@ -27,12 +31,23 @@ import { AuthGuard } from './common/guards/auth.guard';
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'sat-mysql',
+      // host: 'sat-mysql',
+      host: 'localhost',
       port: 3306,
       username: 'root',
       password: 'root',
       database: 'sat_db',
-      entities: [User, Exam, Section, Modular, Question],
+      entities: [
+        User,
+        Exam,
+        Section,
+        Modular,
+        Question,
+        ExamResult,
+        SectionResult,
+        ModularResult,
+        QuestionResult,
+      ],
       synchronize: true,
       logging: true,
     }),
