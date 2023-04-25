@@ -15,14 +15,8 @@ export class Modular {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
-  name: string;
-
   @Column({ type: 'int', nullable: false })
   number: number;
-
-  @OneToMany(() => Question, (question) => question.module)
-  questions: Question[];
 
   @ManyToOne(() => Section)
   @JoinColumn({ name: 'section_id', referencedColumnName: 'id' })
@@ -30,4 +24,7 @@ export class Modular {
 
   @Column({ type: 'int', nullable: false })
   section_id: number;
+
+  @OneToMany(() => Question, (question) => question.modular)
+  questions: Question[];
 }

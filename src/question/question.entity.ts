@@ -16,36 +16,30 @@ export class Question {
   @Column({ type: 'int', nullable: false })
   number: number;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'text', nullable: true })
   passage: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: false })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   content: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  image_path: string;
+  choice_A: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  choice_1: string;
+  choice_B: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  choice_2: string;
+  choice_C: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  choice_3: string;
+  choice_D: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true })
-  choice_4: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  choice_5: string;
-
-  @Column({ type: 'varchar', length: 255, nullable: false })
   correct_answer: string;
 
   @ManyToOne(() => Modular)
   @JoinColumn({ name: 'modular_id', referencedColumnName: 'id' })
-  module: Modular;
+  modular: Modular;
 
   @Column({ type: 'int', nullable: false })
   modular_id: number;
