@@ -1,16 +1,16 @@
 version: '3.7'
 
 services:
-  # sat-app:
-  #   container_name: sat-app
-  #   build:
-  #     context: .
-  #     dockerfile: Dockerfile
-  #   volumes:
-  #     - .:/app
-  #   ports:
-  #     - 3000:3000
-  #   restart: always
+  sat-app:
+    container_name: sat-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - 3000:3000
+    restart: always
 
   sat-mysql:
     image: mysql:8.0
