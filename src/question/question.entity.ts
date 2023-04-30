@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Modular } from '../modular/modular.entity';
+import { Modular } from '../exam/modular.entity';
 
 @Entity()
 export class Question {

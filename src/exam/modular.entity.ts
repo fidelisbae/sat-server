@@ -8,7 +8,7 @@ import {
 } from 'typeorm';
 
 import { Question } from '../question/question.entity';
-import { Section } from '../section/section.entity';
+import { Section } from './section.entity';
 
 @Entity()
 export class Modular {

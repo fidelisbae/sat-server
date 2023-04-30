@@ -19,6 +19,22 @@ export class ExamController {
 
   @ApiBearerAuth('access-token or refresh-token')
   @ApiOperation({
+    summary: 'Create an exam',
+  })
+  @ApiTags('exams')
+  @Post('exams')
+  async create(@Body() body: CreateExamDto) {
+    const data = await this.examService.create(body);
+
+    return <BaseResponse<Exam>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.CREATED),
+      data: data,
+    };
+  }
+
+  @ApiBearerAuth('access-token or refresh-token')
+  @ApiOperation({
     summary: 'Get all exams',
   })
   @ApiTags('exams')
@@ -52,22 +68,6 @@ export class ExamController {
     return <BaseResponse<Exam>>{
       result: true,
       message: getResponsePhrase(STATUS_CODES.OK),
-      data: data,
-    };
-  }
-
-  @ApiBearerAuth('access-token or refresh-token')
-  @ApiOperation({
-    summary: 'Create an exam',
-  })
-  @ApiTags('exams')
-  @Post('exams')
-  async create(@Body() body: CreateExamDto) {
-    const data = await this.examService.create(body);
-
-    return <BaseResponse<Exam>>{
-      result: true,
-      message: getResponsePhrase(STATUS_CODES.CREATED),
       data: data,
     };
   }

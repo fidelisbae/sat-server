@@ -6,24 +6,18 @@ import { JwtModule } from '@nestjs/jwt';
 
 import { UserModule } from './user/user.module';
 import { ExamModule } from './exam/exam.module';
-import { SectionModule } from './section/section.module';
-import { ModularModule } from './modular/modular.module';
 import { QuestionModule } from './question/question.module';
 import { User } from './user/user.entity';
 import { Exam } from './exam/exam.entity';
-import { Section } from './section/section.entity';
-import { Modular } from './modular/modular.entity';
+import { Section } from './exam/section.entity';
+import { Modular } from './exam/modular.entity';
 import { Question } from './question/question.entity';
 import { HttpExceptionFilter } from './common/filters/http.exception.filter';
 import { AuthModule } from './auth/auth.module';
 import { AuthGuard } from './common/guards/auth.guard';
 import { ExamResult } from './exam_result/exam_result.entity';
-import { SectionResult } from './section_result/section_result.entity';
-import { ModularResult } from './modular_result/modular_result.entity';
 import { QuestionResult } from './question_result/question_result.entity';
 import { ExamResultModule } from './exam_result/exam_result.module';
-import { SectionResultModule } from './section_result/section_result.module';
-import { ModularResultModule } from './modular_result/modular_result.module';
 import { QuestionResultModule } from './question_result/question_result.module';
 
 @Module({
@@ -48,8 +42,6 @@ import { QuestionResultModule } from './question_result/question_result.module';
         Modular,
         Question,
         ExamResult,
-        SectionResult,
-        ModularResult,
         QuestionResult,
       ],
       synchronize: true,
@@ -57,13 +49,9 @@ import { QuestionResultModule } from './question_result/question_result.module';
     }),
     UserModule,
     ExamModule,
-    SectionModule,
-    ModularModule,
     QuestionModule,
     AuthModule,
     ExamResultModule,
-    SectionResultModule,
-    ModularResultModule,
     QuestionResultModule,
   ],
   providers: [

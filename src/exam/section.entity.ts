@@ -7,8 +7,8 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Exam } from '../exam/exam.entity';
-import { Modular } from '../modular/modular.entity';
+import { Exam } from './exam.entity';
+import { Modular } from './modular.entity';
 
 @Entity()
 export class Section {
