@@ -8,23 +8,6 @@ import {
 } from 'class-validator';
 
 export class UpdateQuestionDto {
-  @ApiProperty({ example: 1 })
-  @IsNumber()
-  @IsNotEmpty()
-  readonly number: number;
-
-  @ApiProperty({ example: 'Reading And Writing' })
-  @IsString()
-  @IsIn(['Reading And Writing', 'Math'])
-  @IsNotEmpty()
-  readonly section: string;
-
-  @ApiProperty({ example: 1 })
-  @IsNumber()
-  @IsIn([1, 2])
-  @IsNotEmpty()
-  readonly module: number;
-
   @ApiProperty({ example: '문제 본문 this is...' })
   @IsString()
   @IsNotEmpty()

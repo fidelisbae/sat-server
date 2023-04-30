@@ -11,7 +11,7 @@ export class QuestionService {
     private readonly questionRepository: Repository<Question>,
   ) {}
 
-  async create(dto: UpdateQuestionDto): Promise<Question> {
+  async create(dto): Promise<Question> {
     return await this.questionRepository.save(dto);
   }
 

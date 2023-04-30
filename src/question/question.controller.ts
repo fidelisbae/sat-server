@@ -1,5 +1,10 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
@@ -16,9 +21,21 @@ export class QuestionController {
     summary: 'Update a question',
   })
   @ApiTags('questions')
-  @Put('questions')
-  async update(@Body() body: UpdateQuestionDto) {
-    const data = await this.questionService.create(body);
+  @Put('exam/:exam_id/:section/:module/:number')
+  async update(
+    @Body() body: UpdateQuestionDto,
+    @Param('exam_id') exam_id: number,
+    @Param('section') section: string,
+    @Param('module') module: number,
+    @Param('number') number: number,
+  ) {
+    const data = await this.questionService.create({
+      ...body,
+      exam_id,
+      section,
+      module,
+      number,
+    });
 
     return <BaseResponse<Question>>{
       result: true,
