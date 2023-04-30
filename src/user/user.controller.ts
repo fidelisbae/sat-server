@@ -38,7 +38,7 @@ export class UserController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Get all users',
   })
@@ -55,7 +55,7 @@ export class UserController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Get a user with id',
   })
@@ -71,7 +71,7 @@ export class UserController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Delete a user with id',
   })
@@ -87,7 +87,7 @@ export class UserController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Allocate an exam to a user',
   })

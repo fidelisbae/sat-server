@@ -7,7 +7,7 @@ import {
 } from 'typeorm';
 
 import { Question } from '../question/question.entity';
-import { ModularResult } from '../modular_result/modular_result.entity';
+import { ExamResult } from 'src/exam_result/exam_result.entity';
 
 @Entity()
 export class QuestionResult {
@@ -21,10 +21,10 @@ export class QuestionResult {
   @Column({ type: 'int', nullable: false })
   question_id: number;
 
-  @ManyToOne(() => ModularResult)
-  @JoinColumn({ name: 'modular_result_id', referencedColumnName: 'id' })
-  modular_result: ModularResult;
+  @ManyToOne(() => ExamResult)
+  @JoinColumn({ name: 'exam_result_id', referencedColumnName: 'id' })
+  exam_result: ExamResult;
 
   @Column({ type: 'int', nullable: false })
-  modular_result_id: number;
+  exam_result_id: number;
 }

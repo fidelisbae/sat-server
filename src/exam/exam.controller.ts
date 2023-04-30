@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Req,
+  UnauthorizedException,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -17,13 +26,17 @@ import { Exam } from './exam.entity';
 export class ExamController {
   constructor(private readonly examService: ExamService) {}
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Create an exam',
   })
   @ApiTags('exams')
   @Post('exams')
-  async create(@Body() body: CreateExamDto) {
+  async create(@Body() body: CreateExamDto, @Req() req: any) {
+    if (!req.user.isTeacher) {
+      throw new UnauthorizedException('You are not a teacher');
+    }
+
     const data = await this.examService.create(body);
 
     return <BaseResponse<Exam>>{
@@ -33,13 +46,14 @@ export class ExamController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Get all exams',
   })
   @ApiTags('exams')
   @Get('exams')
-  async findAll() {
+  async findAll(@Req() req: any) {
+    console.log(req.user);
     const data = await this.examService.findAll();
 
     return <ListResponse<Exam>>{
@@ -50,7 +64,7 @@ export class ExamController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Get an exam with id, include relations',
   })
@@ -72,7 +86,7 @@ export class ExamController {
     };
   }
 
-  @ApiBearerAuth('access-token or refresh-token')
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Delete an exam with id',
   })
@@ -84,7 +98,11 @@ export class ExamController {
     description: 'Exam id',
   })
   @Delete('exams/:id')
-  async delete(@Param('id') id: number) {
+  async delete(@Param('id') id: number, @Req() req: any) {
+    if (!req.user.isTeacher) {
+      throw new UnauthorizedException('You are not a teacher');
+    }
+
     const data = await this.examService.delete(id);
 
     return <BaseResponse<Exam>>{

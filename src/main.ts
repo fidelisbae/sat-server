@@ -18,7 +18,7 @@ async function bootstrap() {
         name: 'JWT',
         in: 'header',
       },
-      'access-token or refresh-token',
+      'access-token',
     )
     .build();
 
