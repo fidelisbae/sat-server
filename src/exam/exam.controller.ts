@@ -33,7 +33,7 @@ export class ExamController {
   @ApiTags('exams')
   @Post('exams')
   async create(@Body() body: CreateExamDto, @Req() req: any) {
-    if (!req.user.isTeacher) {
+    if (!req.user.is_teacher) {
       throw new UnauthorizedException('You are not a teacher');
     }
 
@@ -52,8 +52,7 @@ export class ExamController {
   })
   @ApiTags('exams')
   @Get('exams')
-  async findAll(@Req() req: any) {
-    console.log(req.user);
+  async findAll() {
     const data = await this.examService.findAll();
 
     return <ListResponse<Exam>>{
@@ -99,7 +98,7 @@ export class ExamController {
   })
   @Delete('exams/:id')
   async delete(@Param('id') id: number, @Req() req: any) {
-    if (!req.user.isTeacher) {
+    if (!req.user.is_teacher) {
       throw new UnauthorizedException('You are not a teacher');
     }
 

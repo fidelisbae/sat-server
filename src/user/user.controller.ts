@@ -30,6 +30,7 @@ export class UserController {
   @Post('users')
   async create(@Body() body: CreateUserDto) {
     const data = await this.userService.create(body);
+    delete data.password;
 
     return <BaseResponse<User>>{
       result: true,

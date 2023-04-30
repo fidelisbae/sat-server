@@ -3,12 +3,14 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Exam } from '../exam/exam.entity';
 import { User } from '../user/user.entity';
+import { QuestionResult } from '../question_result/question_result.entity';
 
 @Entity()
 export class ExamResult {
@@ -28,4 +30,10 @@ export class ExamResult {
 
   @Column({ type: 'int', nullable: false })
   exam_id: number;
+
+  @OneToMany(
+    () => QuestionResult,
+    (questionResult) => questionResult.exam_result,
+  )
+  question_results: QuestionResult[];
 }

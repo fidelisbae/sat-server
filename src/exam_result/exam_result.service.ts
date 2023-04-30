@@ -11,7 +11,13 @@ export class ExamResultService {
     private readonly examResultRepository: Repository<ExamResult>,
   ) {}
 
-  async create(): Promise<ExamResult> {
-    return await this.examResultRepository.save({});
+  async createExamResult(
+    user_id: string,
+    exam_id: number,
+  ): Promise<ExamResult> {
+    return await this.examResultRepository.save({
+      user_id,
+      exam_id,
+    });
   }
 }

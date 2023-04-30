@@ -23,7 +23,6 @@ export class AuthController {
     const { id, password } = body;
 
     const data = await this.authService.login(id, password);
-    console.log(data);
 
     return <BaseResponse<Login>>{
       result: true,

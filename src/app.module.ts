@@ -9,8 +9,6 @@ import { ExamModule } from './exam/exam.module';
 import { QuestionModule } from './question/question.module';
 import { User } from './user/user.entity';
 import { Exam } from './exam/exam.entity';
-import { Section } from './exam/section.entity';
-import { Modular } from './exam/modular.entity';
 import { Question } from './question/question.entity';
 import { HttpExceptionFilter } from './common/filters/http.exception.filter';
 import { AuthModule } from './auth/auth.module';
@@ -35,15 +33,7 @@ import { QuestionResultModule } from './question_result/question_result.module';
       username: 'root',
       password: 'root',
       database: 'sat_db',
-      entities: [
-        User,
-        Exam,
-        Section,
-        Modular,
-        Question,
-        ExamResult,
-        QuestionResult,
-      ],
+      entities: [User, Exam, Question, ExamResult, QuestionResult],
       synchronize: true,
       logging: true,
     }),

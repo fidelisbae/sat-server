@@ -14,12 +14,11 @@ export class QuestionResult {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @ManyToOne(() => Question)
-  @JoinColumn({ name: 'question_id', referencedColumnName: 'id' })
-  question: Question;
-
   @Column({ type: 'int', nullable: false })
-  question_id: number;
+  number: number;
+
+  @Column({ type: 'varchar', nullable: false })
+  your_answer: string;
 
   @ManyToOne(() => ExamResult)
   @JoinColumn({ name: 'exam_result_id', referencedColumnName: 'id' })

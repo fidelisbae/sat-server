@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-import { Section } from './section.entity';
+import { Question } from 'src/question/question.entity';
 
 @Entity()
 export class Exam {
@@ -10,6 +10,6 @@ export class Exam {
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
 
-  @OneToMany(() => Section, (section) => section.exam)
-  sections: Section[];
+  @OneToMany(() => Question, (question) => question.exam)
+  questions: Question[];
 }
