@@ -4,13 +4,13 @@ import { Allow, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 export class UpdateQuestionDto {
   @ApiProperty({ example: '문제 본문 this is...' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @Allow()
   readonly passage: string | null;
 
   @ApiProperty({ example: 'what is this answer?' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   @Allow()
   readonly content: string | null;
 
@@ -40,6 +40,6 @@ export class UpdateQuestionDto {
 
   @ApiProperty({ example: 'A' })
   @IsString()
-  @IsNotEmpty()
+  @IsOptional()
   readonly correct_answer: string;
 }
