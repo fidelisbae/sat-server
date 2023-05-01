@@ -1,42 +1,42 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsIn,
-  IsNotEmpty,
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { Allow, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class UpdateQuestionDto {
   @ApiProperty({ example: '문제 본문 this is...' })
   @IsString()
   @IsNotEmpty()
-  readonly passage: string;
+  @Allow()
+  readonly passage: string | null;
 
   @ApiProperty({ example: 'what is this answer?' })
   @IsString()
   @IsNotEmpty()
-  readonly content: string;
+  @Allow()
+  readonly content: string | null;
 
   @ApiProperty({ example: 'A' })
   @IsString()
   @IsOptional()
-  readonly choice_A: string;
+  @Allow()
+  readonly choice_A: string | null;
 
   @ApiProperty({ example: 'B' })
   @IsString()
   @IsOptional()
-  readonly choice_B: string;
+  @Allow()
+  readonly choice_B: string | null;
 
   @ApiProperty({ example: 'C' })
   @IsString()
   @IsOptional()
-  readonly choice_C: string;
+  @Allow()
+  readonly choice_C: string | null;
 
   @ApiProperty({ example: 'D' })
   @IsString()
   @IsOptional()
-  readonly choice_D: string;
+  @Allow()
+  readonly choice_D: string | null;
 
   @ApiProperty({ example: 'A' })
   @IsString()
