@@ -1,9 +1,26 @@
-import { Body, ConflictException, Controller, Post, Req } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  ConflictException,
+  Controller,
+  Get,
+  Param,
+  Post,
+  Req,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 
 import { ExamResultService } from './exam_result.service';
 import { CreateExamResultDto } from './exam_result.dto';
 import { QuestionResultService } from '../question_result/question_result.service';
+import { BaseResponse } from 'src/common/types/response';
+import { ExamResult } from './exam_result.entity';
+import { getResponsePhrase } from 'src/common/utils/http';
+import { STATUS_CODES } from '../common/constants/http-status';
 
 @Controller('api')
 export class ExamResultController {
@@ -32,12 +49,36 @@ export class ExamResultController {
       req.user.exam_id,
     );
 
-    const questionResults =
-      await this.questionResultService.createQuestionResults(
-        examResult.id,
-        body.answers,
-      );
+    await this.questionResultService.createQuestionResults(
+      examResult.id,
+      body.answers,
+    );
 
-    return true;
+    return <BaseResponse<ExamResult>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.OK),
+      data: examResult,
+    };
+  }
+
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Get exam result by user id',
+  })
+  @ApiParam({
+    name: 'user_id',
+    type: String,
+    required: true,
+  })
+  @ApiTags('exam-results')
+  @Get('exam-results/:user_id')
+  async findByUserId(@Param() userId: string) {
+    const examResult = await this.examResultService.findByUserId(userId);
+
+    return <BaseResponse<ExamResult>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.OK),
+      data: examResult,
+    };
   }
 }

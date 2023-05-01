@@ -20,4 +20,13 @@ export class ExamResultService {
       exam_id,
     });
   }
+
+  async findByUserId(userId: string): Promise<ExamResult[]> {
+    return await this.examResultRepository.find({
+      where: {
+        user_id: userId,
+      },
+      relations: ['question_results'],
+    });
+  }
 }
