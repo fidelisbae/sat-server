@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
-import { Question } from '../question/question.entity';
 import { ExamResult } from 'src/exam_result/exam_result.entity';
 
 @Entity()
@@ -20,7 +19,9 @@ export class QuestionResult {
   @Column({ type: 'varchar', nullable: false })
   your_answer: string;
 
-  @ManyToOne(() => ExamResult)
+  @ManyToOne(() => ExamResult, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'exam_result_id', referencedColumnName: 'id' })
   exam_result: ExamResult;
 

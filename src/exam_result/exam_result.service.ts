@@ -21,12 +21,16 @@ export class ExamResultService {
     });
   }
 
-  async findByUserId(userId: string): Promise<ExamResult[]> {
-    return await this.examResultRepository.find({
+  async findByUserId(user_id: string): Promise<ExamResult> {
+    return await this.examResultRepository.findOne({
       where: {
-        user_id: userId,
+        user_id,
       },
       relations: ['question_results'],
     });
+  }
+
+  async deleteExamResult(id: number): Promise<void> {
+    await this.examResultRepository.delete(id);
   }
 }

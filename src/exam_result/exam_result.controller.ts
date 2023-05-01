@@ -44,6 +44,12 @@ export class ExamResultController {
       throw new ConflictException('You are not in an exam');
     }
 
+    const isExist = await this.examResultService.findByUserId(req.user.id);
+
+    if (isExist) {
+      await this.examResultService.deleteExamResult(isExist.id);
+    }
+
     const examResult = await this.examResultService.createExamResult(
       req.user.id,
       req.user.exam_id,
@@ -72,8 +78,8 @@ export class ExamResultController {
   })
   @ApiTags('exam-results')
   @Get('exam-results/:user_id')
-  async findByUserId(@Param() userId: string) {
-    const examResult = await this.examResultService.findByUserId(userId);
+  async findByUserId(@Param('user_id') user_id: string) {
+    const examResult = await this.examResultService.findByUserId(user_id);
 
     return <BaseResponse<ExamResult>>{
       result: true,
