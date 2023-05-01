@@ -29,15 +29,16 @@ export class QuestionController {
     @Param('module') module: number,
     @Param('number') number: number,
   ) {
-    const data = await this.questionService.create({
-      ...body,
+    const question = await this.questionService.findQuestionId(
       exam_id,
       section,
       module,
       number,
-    });
+    );
 
-    return <BaseResponse<Question>>{
+    const data = await this.questionService.update(question.id, body);
+
+    return {
       result: true,
       message: getResponsePhrase(STATUS_CODES.CREATED),
       data: data,

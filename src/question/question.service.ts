@@ -11,8 +11,8 @@ export class QuestionService {
     private readonly questionRepository: Repository<Question>,
   ) {}
 
-  async create(dto): Promise<Question> {
-    return await this.questionRepository.save(dto);
+  async update(id: number, dto: UpdateQuestionDto) {
+    return await this.questionRepository.update(id, dto);
   }
 
   async findAll(): Promise<Question[]> {
@@ -22,6 +22,22 @@ export class QuestionService {
   async findOne(id: number): Promise<Question> {
     return await this.questionRepository.findOne({
       where: { id },
+    });
+  }
+
+  async findQuestionId(
+    exam_id: number,
+    section: string,
+    module: number,
+    number: number,
+  ): Promise<Question> {
+    return await this.questionRepository.findOne({
+      where: {
+        number: number,
+        module: module,
+        section: section,
+        exam_id: exam_id,
+      },
     });
   }
 }
