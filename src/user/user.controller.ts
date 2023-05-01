@@ -93,7 +93,7 @@ export class UserController {
     summary: 'Allocate an exam to a user',
   })
   @ApiTags('users')
-  @Patch('users/:id')
+  @Patch('users/allocate')
   async allocate(@Body() body: AllocateExamDto) {
     const data = await this.userService.allocate(body);
 
