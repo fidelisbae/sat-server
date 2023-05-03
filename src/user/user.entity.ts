@@ -19,7 +19,7 @@ export class User {
   @Column({ type: 'boolean', nullable: false, default: false })
   is_teacher: boolean;
 
-  @ManyToOne(() => Exam, { onDelete: 'CASCADE' })
+  @ManyToOne(() => Exam, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
   exam: Exam;
 
