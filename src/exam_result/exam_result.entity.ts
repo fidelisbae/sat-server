@@ -34,7 +34,6 @@ export class ExamResult {
   @OneToMany(
     () => QuestionResult,
     (questionResult) => questionResult.exam_result,
-    { onDelete: 'CASCADE' },
   )
   question_results: QuestionResult[];
 }

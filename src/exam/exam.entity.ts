@@ -11,13 +11,9 @@ export class Exam {
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
 
-  @OneToMany(() => Question, (question) => question.exam, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => Question, (question) => question.exam)
   questions: Question[];
 
-  @OneToMany(() => ExamResult, (examResult) => examResult.exam, {
-    onDelete: 'CASCADE',
-  })
+  @OneToMany(() => ExamResult, (examResult) => examResult.exam)
   exam_results: ExamResult[];
 }
