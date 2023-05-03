@@ -43,7 +43,7 @@ export class Question {
   @Column({ type: 'varchar', length: 255, nullable: true, default: '' })
   correct_answer: string;
 
-  @ManyToOne(() => Exam)
+  @ManyToOne(() => Exam, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
   exam: Exam;
 

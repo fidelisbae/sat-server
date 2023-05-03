@@ -10,6 +10,8 @@ export class Exam {
   @Column({ type: 'varchar', length: 255, nullable: false })
   name: string;
 
-  @OneToMany(() => Question, (question) => question.exam)
+  @OneToMany(() => Question, (question) => question.exam, {
+    onDelete: 'CASCADE',
+  })
   questions: Question[];
 }
