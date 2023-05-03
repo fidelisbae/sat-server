@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Question } from 'src/question/question.entity';
+import { ExamResult } from 'src/exam_result/exam_result.entity';
 
 @Entity()
 export class Exam {
@@ -14,4 +15,9 @@ export class Exam {
     onDelete: 'CASCADE',
   })
   questions: Question[];
+
+  @OneToMany(() => ExamResult, (examResult) => examResult.exam, {
+    onDelete: 'CASCADE',
+  })
+  exam_results: ExamResult[];
 }

@@ -24,7 +24,7 @@ export class ExamResult {
   @Column({ type: 'varchar', nullable: false })
   user_id: string;
 
-  @ManyToOne(() => Exam)
+  @ManyToOne(() => Exam, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
   exam: Exam;
 
