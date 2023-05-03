@@ -28,10 +28,9 @@ import { QuestionResultModule } from './question_result/question_result.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'sat-mysql',
-      // host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: 'brix',
       database: 'sat_db',
       entities: [User, Exam, Question, ExamResult, QuestionResult],
       synchronize: true,

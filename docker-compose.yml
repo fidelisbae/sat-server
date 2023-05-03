@@ -16,7 +16,7 @@ services:
     image: mysql:8.0
     container_name: sat-mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: brix
       MYSQL_DATABASE: sat_db
     volumes:
       - ./data:/var/lib/mysql
