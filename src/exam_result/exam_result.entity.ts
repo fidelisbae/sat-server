@@ -17,7 +17,7 @@ export class ExamResult {
   @PrimaryGeneratedColumn('increment')
   id: number;
 
-  @OneToOne(() => User)
+  @OneToOne(() => User, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
