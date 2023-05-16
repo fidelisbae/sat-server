@@ -22,7 +22,7 @@ export class Question {
   @Column({ type: 'int', nullable: false })
   number: number;
 
-  @Column({ type: 'text', nullable: true })
+  @Column({ type: 'mediumtext', nullable: true })
   passage: string;
 
   @Column({ type: 'varchar', length: 255, nullable: true, default: '' })
