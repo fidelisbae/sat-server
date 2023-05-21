@@ -8,7 +8,11 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(express.json({ limit: '1mb' }));
 
-  app.enableCors();
+  app.enableCors({
+    origin: 'https://brixsat.com',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    credentials: true,
+  });
   const config = new DocumentBuilder()
     .setTitle('SAT API')
     .setDescription('The SAT API description')
