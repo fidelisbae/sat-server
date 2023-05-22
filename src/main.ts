@@ -6,7 +6,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use(express.json({ limit: '1mb' }));
+  app.use(express.json({ limit: '3mb' }));
 
   app.enableCors({
     origin: 'https://brixsat.com',
