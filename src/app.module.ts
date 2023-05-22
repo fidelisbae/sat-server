@@ -33,7 +33,6 @@ import { QuestionResultModule } from './question_result/question_result.module';
       password: 'brix',
       database: 'sat_db',
       entities: [User, Exam, Question, ExamResult, QuestionResult],
-      synchronize: true,
       logging: true,
     }),
     UserModule,
