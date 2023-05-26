@@ -21,8 +21,7 @@ import { UpdateResult } from 'typeorm';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // Todo : delete Public decorator
-  @Public()
+  @ApiBearerAuth('access-token')
   @ApiOperation({
     summary: 'Create a user',
   })
