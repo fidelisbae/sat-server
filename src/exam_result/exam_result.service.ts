@@ -38,6 +38,7 @@ export class ExamResultService {
       where: {
         id,
       },
+      relations: ['question_results'],
     });
   }
 
