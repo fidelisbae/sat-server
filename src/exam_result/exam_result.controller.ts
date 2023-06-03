@@ -2,6 +2,7 @@ import {
   Body,
   ConflictException,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -44,12 +45,6 @@ export class ExamResultController {
       throw new ConflictException('You are not in an exam');
     }
 
-    const isExist = await this.examResultService.findByUserId(req.user.id);
-
-    if (isExist) {
-      await this.examResultService.deleteExamResult(isExist.id);
-    }
-
     const examResult = await this.examResultService.createExamResult(
       req.user.id,
       req.user.exam_id,
@@ -69,22 +64,75 @@ export class ExamResultController {
 
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Get exam result by user id',
+    summary: 'Get all exam results by user id and exam id',
   })
   @ApiParam({
     name: 'user_id',
     type: String,
     required: true,
   })
+  @ApiParam({
+    name: 'exam_id',
+    type: Number,
+    required: true,
+  })
   @ApiTags('exam-results')
-  @Get('exam-results/:user_id')
-  async findByUserId(@Param('user_id') user_id: string) {
-    const examResult = await this.examResultService.findByUserId(user_id);
+  @Get('exam-results/:user_id/:exam_id')
+  async findByUserIdAndExamId(
+    @Param('user_id') user_id: string,
+    @Param('exam_id') exam_id: number,
+  ) {
+    const examResults = await this.examResultService.findAllByUserIdAndExamId(
+      user_id,
+      exam_id,
+    );
+
+    return <BaseResponse<ExamResult[]>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.OK),
+      data: examResults,
+    };
+  }
+
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Get an exam result by id',
+  })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    required: true,
+  })
+  @ApiTags('exam-results')
+  @Get('exam-results/:id')
+  async findOne(@Param('id') id: number) {
+    const examResult = await this.examResultService.findOne(id);
 
     return <BaseResponse<ExamResult>>{
       result: true,
       message: getResponsePhrase(STATUS_CODES.OK),
       data: examResult,
+    };
+  }
+
+  @ApiBearerAuth('access-token')
+  @ApiOperation({
+    summary: 'Delete an exam result by id',
+  })
+  @ApiParam({
+    name: 'id',
+    type: Number,
+    required: true,
+  })
+  @ApiTags('exam-results')
+  @Delete('exam-results/:id')
+  async delete(@Param('id') id: number) {
+    await this.examResultService.deleteExamResult(id);
+
+    return <BaseResponse<null>>{
+      result: true,
+      message: getResponsePhrase(STATUS_CODES.OK),
+      data: null,
     };
   }
 }

@@ -21,12 +21,23 @@ export class ExamResultService {
     });
   }
 
-  async findByUserId(user_id: string): Promise<ExamResult> {
-    return await this.examResultRepository.findOne({
+  async findAllByUserIdAndExamId(
+    user_id: string,
+    exam_id: number,
+  ): Promise<ExamResult[]> {
+    return await this.examResultRepository.find({
       where: {
         user_id,
+        exam_id,
       },
-      relations: ['question_results'],
+    });
+  }
+
+  async findOne(id: number): Promise<ExamResult> {
+    return await this.examResultRepository.findOne({
+      where: {
+        id,
+      },
     });
   }
 
