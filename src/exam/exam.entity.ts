@@ -25,7 +25,7 @@ export class Exam {
   @OneToMany(() => ExamResult, (examResult) => examResult.exam)
   exam_results: ExamResult[];
 
-  @ManyToMany(() => User, (user) => user.exams)
+  @ManyToMany(() => User, (user) => user.exams, { onDelete: 'CASCADE' })
   @JoinTable()
   users: User[];
 }

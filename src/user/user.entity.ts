@@ -19,7 +19,7 @@ export class User {
   @Column({ type: 'boolean', nullable: false, default: false })
   is_teacher: boolean;
 
-  @ManyToMany(() => Exam, (exam) => exam.users)
+  @ManyToMany(() => Exam, (exam) => exam.users, { onDelete: 'CASCADE' })
   @JoinTable()
   exams: Exam[];
 }
