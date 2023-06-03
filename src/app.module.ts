@@ -34,6 +34,7 @@ import { QuestionResultModule } from './question_result/question_result.module';
       database: 'sat_db',
       entities: [User, Exam, Question, ExamResult, QuestionResult],
       logging: true,
+      synchronize: true,
     }),
     UserModule,
     ExamModule,

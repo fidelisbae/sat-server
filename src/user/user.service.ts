@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, UpdateResult } from 'typeorm';
+import { Repository } from 'typeorm';
 
 import { User } from './user.entity';
 import { AllocateExamDto, CreateUserDto } from './user.dto';
+import { ExamService } from '../exam/exam.service';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
+    private readonly examService: ExamService,
   ) {}
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -23,7 +25,7 @@ export class UserService {
   async findOne(id: string): Promise<User> {
     return await this.userRepository.findOne({
       where: { id },
-      relations: ['exam'],
+      relations: ['exams'],
     });
   }
 
@@ -32,12 +34,22 @@ export class UserService {
     return await this.userRepository.delete(id);
   }
 
-  async allocate(dto: AllocateExamDto): Promise<UpdateResult> {
+  async allocate(dto: AllocateExamDto): Promise<User> {
     const { exam_id, user_id } = dto;
-    const data = await this.userRepository.update(user_id, {
-      exam_id,
-    });
 
-    return data;
+    const user = await this.findOne(user_id);
+    const exam = await this.examService.findOne(exam_id);
+
+    if (!user) {
+      throw new Error('User not found');
+    }
+
+    if (!exam) {
+      throw new Error('Exam not found');
+    }
+
+    user.exams.push(exam);
+
+    return await this.userRepository.save(user);
   }
 }

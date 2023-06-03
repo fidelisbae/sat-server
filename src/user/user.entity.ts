@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from 'typeorm';
 
 import { Exam } from '../exam/exam.entity';
 
@@ -19,10 +19,7 @@ export class User {
   @Column({ type: 'boolean', nullable: false, default: false })
   is_teacher: boolean;
 
-  @ManyToOne(() => Exam, { onDelete: 'SET NULL' })
-  @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
-  exam: Exam;
-
-  @Column({ type: 'int', nullable: true })
-  exam_id: number;
+  @ManyToMany(() => Exam, (exam) => exam.users)
+  @JoinTable()
+  exams: Exam[];
 }

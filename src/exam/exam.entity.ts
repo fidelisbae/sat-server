@@ -1,7 +1,15 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 import { Question } from 'src/question/question.entity';
 import { ExamResult } from 'src/exam_result/exam_result.entity';
+import { User } from 'src/user/user.entity';
 
 @Entity()
 export class Exam {
@@ -16,4 +24,8 @@ export class Exam {
 
   @OneToMany(() => ExamResult, (examResult) => examResult.exam)
   exam_results: ExamResult[];
+
+  @ManyToMany(() => User, (user) => user.exams)
+  @JoinTable()
+  users: User[];
 }

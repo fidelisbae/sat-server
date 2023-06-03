@@ -67,9 +67,15 @@ export class ExamService {
     return await this.examRepository.find();
   }
 
-  async findOne(id: number): Promise<Exam> {
+  async findOneWithQuestions(id: number): Promise<Exam> {
     return await this.examRepository.findOne({
       relations: ['questions'],
+      where: { id },
+    });
+  }
+
+  async findOne(id: number): Promise<Exam> {
+    return await this.examRepository.findOne({
       where: { id },
     });
   }

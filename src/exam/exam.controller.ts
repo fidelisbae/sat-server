@@ -76,7 +76,7 @@ export class ExamController {
   })
   @Get('exams/:id')
   async findOne(@Param('id') id: number) {
-    const data = await this.examService.findOne(id);
+    const data = await this.examService.findOneWithQuestions(id);
 
     return <BaseResponse<Exam>>{
       result: true,

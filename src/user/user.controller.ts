@@ -96,7 +96,7 @@ export class UserController {
   async allocate(@Body() body: AllocateExamDto) {
     const data = await this.userService.allocate(body);
 
-    return <BaseResponse<UpdateResult>>{
+    return <BaseResponse<User>>{
       result: true,
       message: getResponsePhrase(STATUS_CODES.OK),
       data: data,
