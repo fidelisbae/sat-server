@@ -25,8 +25,10 @@ export class ExamResult {
   user_id: string;
 
   @ManyToOne(() => Exam, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
-  @JoinColumn({ name: 'exam_name', referencedColumnName: 'name' })
+  @JoinColumn([
+    { name: 'exam_id', referencedColumnName: 'id' },
+    { name: 'exam_name', referencedColumnName: 'name' },
+  ])
   exam: Exam;
 
   @Column({ type: 'int', nullable: false })
