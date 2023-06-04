@@ -86,7 +86,7 @@ export class ExamResultController {
     required: true,
   })
   @ApiTags('exam-results')
-  @Get('exam-results/:user_id')
+  @Get('exam-results/users/:user_id')
   async findByUserIdAndExamId(@Param('user_id') user_id: string) {
     const examResults = await this.examResultService.findAllByUserId(user_id);
 
@@ -109,9 +109,7 @@ export class ExamResultController {
   @ApiTags('exam-results')
   @Get('exam-results/:id')
   async findOne(@Param('id') id: number) {
-    console.log(id);
     const examResult = await this.examResultService.findOne(id);
-    console.log(examResult);
 
     return <BaseResponse<ExamResult>>{
       result: true,
