@@ -75,16 +75,11 @@ export class ExamResultController {
 
   @ApiBearerAuth('access-token')
   @ApiOperation({
-    summary: 'Get all exam results by user id and exam id',
+    summary: 'Get all exam results by user id',
   })
   @ApiParam({
     name: 'user_id',
     type: String,
-    required: true,
-  })
-  @ApiParam({
-    name: 'exam_id',
-    type: Number,
     required: true,
   })
   @ApiTags('exam-results')
