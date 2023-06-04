@@ -43,7 +43,7 @@ export class ExamResultController {
       throw new ConflictException('You are not a student');
     }
 
-    if (req.user.exam_id === null) {
+    if (!req.user.exams.includes(exam_id)) {
       throw new ConflictException('You are not in an exam');
     }
 
@@ -58,7 +58,7 @@ export class ExamResultController {
 
     const examResult = await this.examResultService.createExamResult(
       req.user.id,
-      req.user.exam_id,
+      exam_id,
     );
 
     await this.questionResultService.createQuestionResults(
