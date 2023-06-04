@@ -18,17 +18,19 @@ import {
 import { ExamResultService } from './exam_result.service';
 import { CreateExamResultDto } from './exam_result.dto';
 import { QuestionResultService } from '../question_result/question_result.service';
-import { BaseResponse } from 'src/common/types/response';
+import { BaseResponse } from '../common/types/response';
 import { ExamResult } from './exam_result.entity';
-import { getResponsePhrase } from 'src/common/utils/http';
+import { getResponsePhrase } from '../common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
-import { Exam } from 'src/exam/exam.entity';
+import { Exam } from '../exam/exam.entity';
+import { ExamService } from '../exam/exam.service';
 
 @Controller('api')
 export class ExamResultController {
   constructor(
     private readonly examResultService: ExamResultService,
     private readonly questionResultService: QuestionResultService,
+    private readonly examService: ExamService,
   ) {}
 
   @ApiBearerAuth('access-token')
@@ -59,9 +61,12 @@ export class ExamResultController {
       await this.examResultService.deleteExamResult(isExist.id);
     }
 
+    const exam = await this.examService.findOne(exam_id);
+
     const examResult = await this.examResultService.createExamResult(
       req.user.id,
       exam_id,
+      exam.name,
     );
 
     await this.questionResultService.createQuestionResults(

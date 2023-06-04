@@ -14,10 +14,12 @@ export class ExamResultService {
   async createExamResult(
     user_id: string,
     exam_id: number,
+    exam_name: string,
   ): Promise<ExamResult> {
     return await this.examResultRepository.save({
       user_id,
       exam_id,
+      exam_name,
     });
   }
 
