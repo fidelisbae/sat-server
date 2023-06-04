@@ -22,6 +22,7 @@ import { BaseResponse } from 'src/common/types/response';
 import { ExamResult } from './exam_result.entity';
 import { getResponsePhrase } from 'src/common/utils/http';
 import { STATUS_CODES } from '../common/constants/http-status';
+import { Exam } from 'src/exam/exam.entity';
 
 @Controller('api')
 export class ExamResultController {
@@ -43,7 +44,9 @@ export class ExamResultController {
       throw new ConflictException('You are not a student');
     }
 
-    if (!req.user.exams.includes(exam_id)) {
+    const ExamsOfUser = req.user.exams.map((exam: Exam) => exam.id);
+
+    if (!ExamsOfUser.includes(exam_id)) {
       throw new ConflictException('You are not in an exam');
     }
 
