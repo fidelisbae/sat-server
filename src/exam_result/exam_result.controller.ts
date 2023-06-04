@@ -109,7 +109,9 @@ export class ExamResultController {
   @ApiTags('exam-results')
   @Get('exam-results/:id')
   async findOne(@Param('id') id: number) {
+    console.log(id);
     const examResult = await this.examResultService.findOne(id);
+    console.log(examResult);
 
     return <BaseResponse<ExamResult>>{
       result: true,

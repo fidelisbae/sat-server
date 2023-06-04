@@ -31,9 +31,7 @@ export class ExamResultService {
 
   async findOne(id: number): Promise<ExamResult> {
     return await this.examResultRepository.findOne({
-      where: {
-        id,
-      },
+      where: { id },
       relations: ['question_results'],
     });
   }
