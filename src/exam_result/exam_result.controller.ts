@@ -37,12 +37,23 @@ export class ExamResultController {
   @ApiTags('exam-results')
   @Post('exam-results')
   async create(@Req() req: any, @Body() body: CreateExamResultDto) {
+    const { exam_id } = body;
+
     if (req.user.is_teacher) {
       throw new ConflictException('You are not a student');
     }
 
     if (req.user.exam_id === null) {
       throw new ConflictException('You are not in an exam');
+    }
+
+    const isExist = await this.examResultService.findOneByUserIdAndExamId(
+      req.user.id,
+      exam_id,
+    );
+
+    if (isExist) {
+      await this.examResultService.deleteExamResult(isExist.id);
     }
 
     const examResult = await this.examResultService.createExamResult(
@@ -77,15 +88,9 @@ export class ExamResultController {
     required: true,
   })
   @ApiTags('exam-results')
-  @Get('exam-results/:user_id/:exam_id')
-  async findByUserIdAndExamId(
-    @Param('user_id') user_id: string,
-    @Param('exam_id') exam_id: number,
-  ) {
-    const examResults = await this.examResultService.findAllByUserIdAndExamId(
-      user_id,
-      exam_id,
-    );
+  @Get('exam-results/:user_id')
+  async findByUserIdAndExamId(@Param('user_id') user_id: string) {
+    const examResults = await this.examResultService.findAllByUserId(user_id);
 
     return <BaseResponse<ExamResult[]>>{
       result: true,

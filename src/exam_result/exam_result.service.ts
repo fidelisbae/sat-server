@@ -21,14 +21,10 @@ export class ExamResultService {
     });
   }
 
-  async findAllByUserIdAndExamId(
-    user_id: string,
-    exam_id: number,
-  ): Promise<ExamResult[]> {
+  async findAllByUserId(user_id: string): Promise<ExamResult[]> {
     return await this.examResultRepository.find({
       where: {
         user_id,
-        exam_id,
       },
     });
   }
@@ -39,6 +35,18 @@ export class ExamResultService {
         id,
       },
       relations: ['question_results'],
+    });
+  }
+
+  async findOneByUserIdAndExamId(
+    user_id: string,
+    exam_id: number,
+  ): Promise<ExamResult> {
+    return await this.examResultRepository.findOne({
+      where: {
+        user_id,
+        exam_id,
+      },
     });
   }
 
