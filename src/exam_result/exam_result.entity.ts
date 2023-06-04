@@ -26,10 +26,14 @@ export class ExamResult {
 
   @ManyToOne(() => Exam, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'exam_id', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'exam_name', referencedColumnName: 'name' })
   exam: Exam;
 
   @Column({ type: 'int', nullable: false })
   exam_id: number;
+
+  @Column({ type: 'varchar', nullable: true })
+  exam_name: string;
 
   @OneToMany(
     () => QuestionResult,
